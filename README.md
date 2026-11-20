@@ -7,10 +7,11 @@ generation, formulates the station/time-slot assignment problem as a **QUBO**, s
 it with **QAOA** on Qiskit Aer, and compares the result honestly against a classical
 **OR-Tools CP-SAT** baseline.
 
-> **Phase 1 of 10 is complete.** This repository currently contains the full project
-> skeleton, pinned dependency set, FastAPI application skeleton, React/TypeScript/Vite
-> frontend shell, PostgreSQL service definition and an automated environment test
-> suite. Feature phases (2–10) are listed at the bottom.
+> **Phases 1–2 of 10 are complete.** The repository contains the full project
+> skeleton, pinned dependency set, FastAPI application skeleton, PostgreSQL service
+> definition and an automated environment test suite, plus the complete Phase 2
+> frontend: 15 pages, sidebar navigation, dashboards, charts and maps — all driven by
+> clearly labelled sample data. Feature phases (3–10) are listed at the bottom.
 
 ---
 
@@ -44,8 +45,13 @@ QuantumEV/
 │   └── Dockerfile
 ├── frontend/                 # React + TypeScript + Vite + Tailwind CSS
 │   ├── src/
-│   │   ├── App.tsx           # Phase 1 status console (live backend data)
-│   │   ├── lib/api.ts        # axios client + typed API functions
+│   │   ├── App.tsx           # routing + role-based route guards
+│   │   ├── pages/            # 15 pages (landing, auth, 12 dashboards/management)
+│   │   ├── components/       # ui/ primitives, charts/ (Recharts), map/ (Leaflet), layout/
+│   │   ├── context/          # AppContext — demo session + notifications
+│   │   ├── data/sample.ts    # deterministic simulated sample data (Phase 2 source)
+│   │   ├── lib/              # api.ts (axios), format.ts, metrics.ts
+│   │   ├── types/            # shared domain model
 │   │   └── index.css         # Tailwind entry point
 │   ├── nginx.conf            # SPA fallback for the production image
 │   ├── vite.config.ts
@@ -123,6 +129,22 @@ npm run dev
 | Health | http://localhost:8000/api/v1/health |
 | Dependency readiness | http://localhost:8000/api/v1/health/dependencies |
 
+### 4.1.1 Phase 2 demo accounts
+
+The frontend ships with a local demo sign-in, so the UI can be reviewed without the
+backend. Password for all three accounts: `quantumev`.
+
+| Role | Email | Lands on |
+| --- | --- | --- |
+| Administrator | `admin@quantumev.io` | `/app/admin` |
+| EV Owner | `owner@quantumev.io` | `/app/owner` |
+| Energy Operator | `operator@quantumev.io` | `/app/grid` |
+
+Sidebar navigation is filtered per role, and route guards redirect a role away from
+pages it may not open. Every figure rendered is generated deterministically by
+[frontend/src/data/sample.ts](file:///c:/Users/RAJESWARI/OneDrive/Documents/QuantumEV/frontend/src/data/sample.ts)
+and surfaces the "Simulated sample data" chip in each page header.
+
 ### 4.2 Docker (PostgreSQL + backend + frontend)
 
 ```powershell
@@ -188,7 +210,7 @@ These are hard project rules, enforced in every later phase:
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Project structure & environment | **done** |
-| 2 | Frontend & UI (15 pages, layout, charts, maps) | pending |
+| 2 | Frontend & UI (15 pages, layout, charts, maps) | **done** |
 | 3 | Backend & authentication (JWT, RBAC, 3 roles) | pending |
 | 4 | PostgreSQL schema, indexes, Alembic migrations, seed data | pending |
 | 5 | Real-time simulation engine + WebSockets | pending |
