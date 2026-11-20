@@ -1,0 +1,50 @@
+# QuantumEV — Python dependencies
+# Target runtime: Python 3.12 (validated on Windows 11 and Linux)
+# Install:  python -m pip install -r requirements.txt
+#
+# The pins below are mutually compatible. They are validated by
+# `tests/test_phase1_environment.py` and by `GET /api/v1/health/dependencies`.
+
+# ---------- Web / API ----------
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+python-multipart==0.0.20
+email-validator==2.2.0
+websockets==14.1
+
+# ---------- Auth / Security ----------
+PyJWT==2.10.1
+passlib==1.7.4
+bcrypt==4.0.1          # passlib 1.7.4 is incompatible with bcrypt >= 4.1
+cryptography==44.0.0
+
+# ---------- Database ----------
+SQLAlchemy==2.0.36
+alembic==1.14.0
+psycopg2-binary==2.9.10
+
+# ---------- Data / AI engine ----------
+numpy==2.1.3
+pandas==2.2.3
+scipy==1.14.1
+scikit-learn==1.6.0
+xgboost==2.1.3
+joblib==1.4.2
+matplotlib==3.9.3
+
+# ---------- Quantum engine ----------
+qiskit==1.3.1
+qiskit-aer==0.15.1
+qiskit-algorithms==0.3.1
+qiskit-optimization==0.6.1
+ortools==9.11.4210     # classical CP-SAT baseline
+networkx==3.4.2
+
+# ---------- Simulation / integration ----------
+httpx==0.28.1
+
+# ---------- Testing ----------
+pytest==8.3.4
+pytest-asyncio==0.25.0
